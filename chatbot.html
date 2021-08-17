@@ -3,61 +3,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>chatBot</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-     <script>
      
-	   function start(){
-        res_msg=document.createElement('div');
-          res_msg.innerHTML="hello  NUHU, how can i help you?";
-            res_msg.setAttribute("class","left");
-          document.getElementById('input').appendChild(res_msg);
-        }
-      
-    document.getElementById('send').addEventListener("click",async(e) =>
-    {
-        e.prentDefault();
-
-        var req=document.getElementById('text').value;
-        if(req==undefined || req==""){
-
-        }else{
-            let res="";
-            await axios.get('https://api.monkedev.com/fun/chat?msg=${req}').then(data=>{
-                res=JSON.stringify(data.data.response)
-            })
-            let msg_req=document.createElement('div');
-            let msg_res=document.createElement('div');
-
-            let con1=document.createElement('div');
-            let con2=document.createElement('div');
-
-            con1.setAttribute("class","msgcon1");
-            con2.setAttribute("class","msgcon2");
-
-            msg_req.innerHTML=req;
-            msg_res.innerHTML=res;
-
-            msg_req.setAttribute("class","right");
-            msg_res.setAttribute("class","left");
-
-            let Message=document.getElementById('msg_area');
-            Message.appendChild(con1);
-            Message.appendChild(con2);
-
-            con1.appendChild(msg_req);
-            con2.appendChild(msg_res);
-
-            document.getElementById('text').value="";
-            function scroll(){
-                var scrollMsg=document.getElemetById('msg_area');
-                scrollMsg.scrollTop= scrollMsg.scrollHeight;
-            }
-            scroll();
-
-
-        }
-    }
-    ); 
-    </script>
         <style>
         ::-webkit-scrollbar{
             width: 0;
@@ -184,12 +130,71 @@
     <div id="input">
 	     
         <input type="text" placeholder="New Message" id="text">
-        <button id="send">Send<i class="fa fa-paper-plane"></i></button>
+        <button id="send" >Send<i class="fa fa-paper-plane"></i></button>
  </div>
 </div>
 <footer>
    <p>© 2021 GitHub, Inc.</p>
 </footer>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+     
+	   function start(){
+        res_msg=document.createElement('div');
+          res_msg.innerHTML="hello  NUHU, how can i help you?";
+            res_msg.setAttribute("class","left");
+          document.getElementById('input').appendChild(res_msg);
+        }
+		
+      
+    document.getElementById('send').addEventListener("click",async(e) =>
+    {
+        e.preventDefault();
+
+        var req=document.getElementById('text').value;
+        if(req==undefined || req==""){
+
+        }else{
+            let res="";
+            axios.get('https://api.monkedev.com/fun/chat?msg=${req}').then(data=>{
+                res=JSON.stringify(data.data.response)
+            })
+            let msg_req=document.createElement('div');
+            let msg_res=document.createElement('div');
+
+            let con1=document.createElement('div');
+            let con2=document.createElement('div');
+
+            con1.setAttribute("class","msgcon1");
+            con2.setAttribute("class","msgcon2");
+
+            msg_req.innerHTML=req;
+            msg_res.innerHTML=res;
+
+            msg_req.setAttribute("class","right");
+            msg_res.setAttribute("class","left");
+
+            let Message=document.getElementById('msg_area');
+            Message.appendChild(con1);
+            Message.appendChild(con2);
+
+            con1.appendChild(msg_req);
+            con2.appendChild(msg_res);
+
+            document.getElementById('text').value="";
+			//var scrollMsg=document.getElemetById('msg_area');
+			var scrollMsg=document.querySelector("#msg_area");
+            function scroll(){
+                
+                scrollMsg.scrollTop= scrollMsg.scrollHeight;
+            }
+            scroll();
+
+
+        }
+    }
+    ); 
+    </script>
     </body>
     
     </html>
